@@ -22,4 +22,25 @@ Notice: Finished catalog run in 0.07 seconds
 vagrant@nodep1:~/nov19$ ls /tmp/helloworld.txt
 
 
+### Idempotence
+vagrant@nodep1:~/nov19$ puppet apply helloworld.pp
+Warning: Could not retrieve fact fqdn
+Notice: Compiled catalog for nodep1 in environment production in 0.08 seconds
+Notice: Finished catalog run in 0.07 seconds
+vagrant@nodep1:~/nov19$ cat helloworld.pp
+
+vagrant@nodep1:~/nov19$ vi helloworld.pp
+vagrant@nodep1:~/nov19$ cat helloworld.pp
+file { '/tmp/helloworld.txt':
+  ensure => present,
+  content => 'username=scott'
+}
+
+vagrant@nodep1:~/nov19$ puppet apply helloworld.pp
+Warning: Could not retrieve fact fqdn
+Notice: Compiled catalog for nodep1 in environment production in 0.09 seconds
+Notice: /Stage[main]/Main/File[/tmp/helloworld.txt]/content: content changed '{md5}d41d8cd98f00b204e9800998ecf8427e' to '{md5}d73d8d27a41b7a89ade4a14714a4ae69'
+Notice: Finished catalog run in 0.11 seconds
+vagrant@nodep1:~/nov19$ cat /tmp/helloworld.txt
+username=scottvagrant@nodep1:~/nov19$
 
