@@ -149,6 +149,18 @@ from nodep1 execute
 from puppet execute
   puppet cert list
   puppet sign nodep1
+  
+#### Force certificate recreation
+from puppet 
+  puppet cert clean "nodep1"
+from nodep1
+  rm -rf /var/lib/puppet/ssl
+  puppet agent -t
+from puppet
+  puppet cert sign "nodep1"
+from nodep1
+  puppet agent -t
+ 
 
 
 
