@@ -134,3 +134,21 @@ Listen 9090
         Listen 443
 root@nodep1:/home/vagrant/nov19/apache2/files#
 
+### Subscribe notify
+notify
+subscript
+~>
+
+#### Bring up puppet 
+on Vagrantfile 
+56 to 78 uncomment, save the file and then execute vagrant up
+
+###### Certificate signing
+from nodep1 execute
+  puppet agent -t
+from puppet execute
+  puppet cert list
+  puppet sign nodep1
+
+
+
