@@ -9,7 +9,7 @@ https://www.virtualbox.org/wiki/Downloads
 
 https://download.virtualbox.org/virtualbox/5.1.38/VirtualBox-5.1.38-122592-Win.exe
 
-### Install virtual box
+### Install vagrant
 
 https://www.vagrantup.com/downloads.html
 
