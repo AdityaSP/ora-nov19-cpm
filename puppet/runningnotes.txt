@@ -58,3 +58,25 @@ package {'apache2':
 }
 root@nodep1:/home/vagrant/nov19#
 
+### Create a module
+
+root@nodep1:/home/vagrant/nov19# puppet module generate apache2
+Error: Could not generate directory "apache2", you must specify a dash-separated username and module name.
+Error: Try 'puppet help module generate' for usage
+root@nodep1:/home/vagrant/nov19# puppet module generate sp-apache2
+Notice: Generating module at /home/vagrant/nov19/sp-apache2
+sp-apache2
+sp-apache2/Modulefile
+sp-apache2/README
+sp-apache2/manifests
+sp-apache2/manifests/init.pp
+sp-apache2/spec
+sp-apache2/spec/spec_helper.rb
+sp-apache2/tests
+sp-apache2/tests/init.pp
+root@nodep1:/home/vagrant/nov19# ls
+helloworld.pp  install_apache2.pp  sp-apache2
+root@nodep1:/home/vagrant/nov19# mv sp-apache2 apache2
+root@nodep1:/home/vagrant/nov19# ls
+apache2  helloworld.pp  install_apache2.pp
+root@nodep1:/home/vagrant/nov19#
