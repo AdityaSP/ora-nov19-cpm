@@ -80,3 +80,17 @@ root@nodep1:/home/vagrant/nov19# mv sp-apache2 apache2
 root@nodep1:/home/vagrant/nov19# ls
 apache2  helloworld.pp  install_apache2.pp
 root@nodep1:/home/vagrant/nov19#
+
+
+root@nodep1:/home/vagrant/nov19# cat apache2/manifests/init.pp
+class apache2 {
+  package{'apache2':
+    ensure => present
+  }
+  service{'apache2':
+    ensure => running
+  }
+}
+root@nodep1:/home/vagrant/nov19# cat install_apache2.pp
+include apache2
+root@nodep1:/home/vagrant/nov19#
