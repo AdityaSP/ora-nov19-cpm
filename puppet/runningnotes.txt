@@ -44,3 +44,5 @@ Notice: Finished catalog run in 0.11 seconds
 vagrant@nodep1:~/nov19$ cat /tmp/helloworld.txt
 username=scottvagrant@nodep1:~/nov19$
 
+
+### CONVERGENCE AND IDEMPOTENCE
