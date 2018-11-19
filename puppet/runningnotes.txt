@@ -46,3 +46,15 @@ username=scottvagrant@nodep1:~/nov19$
 
 
 ### CONVERGENCE AND IDEMPOTENCE
+
+
+### install apache2
+$ sudo su
+$ apt-get update
+
+root@nodep1:/home/vagrant/nov19# cat install_apache2.pp
+package {'apache2':
+  ensure => present
+}
+root@nodep1:/home/vagrant/nov19#
+
