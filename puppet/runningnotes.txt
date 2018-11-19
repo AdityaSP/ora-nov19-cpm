@@ -94,3 +94,26 @@ class apache2 {
 root@nodep1:/home/vagrant/nov19# cat install_apache2.pp
 include apache2
 root@nodep1:/home/vagrant/nov19#
+
+root@nodep1:/home/vagrant/nov19# cat apache2/manifests/init.pp
+class apache2 {
+  package{'apache2':
+    ensure => present
+  }
+  service{'apache2':
+    ensure => running
+  }
+}
+root@nodep1:/home/vagrant/nov19# cat install_apache2.pp
+include apache2
+root@nodep1:/home/vagrant/nov19# puppet apply install_apache2.pp
+Warning: Could not retrieve fact fqdn
+Error: Could not find class apache2 for nodep1 on node nodep1
+Error: Could not find class apache2 for nodep1 on node nodep1
+root@nodep1:/home/vagrant/nov19# puppet apply --modulepath /home/vagrant/nov19 install_apache2.pp
+Warning: Could not retrieve fact fqdn
+Notice: Compiled catalog for nodep1 in environment production in 0.26 seconds
+Notice: Finished catalog run in 0.22 seconds
+root@nodep1:/home/vagrant/nov19#
+
+
