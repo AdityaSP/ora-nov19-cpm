@@ -121,4 +121,16 @@ root@nodep1:/home/vagrant/nov19#
 require
 before
 
+### Managing static files
+
+root@nodep1:/home/vagrant/nov19/apache2# mkdir files
+root@nodep1:/home/vagrant/nov19/apache2# cd files/
+root@nodep1:/home/vagrant/nov19/apache2/files# ls
+root@nodep1:/home/vagrant/nov19/apache2/files# cp /etc/apache2/ports.conf .
+root@nodep1:/home/vagrant/nov19/apache2/files# vi ports.conf
+root@nodep1:/home/vagrant/nov19/apache2/files# grep Listen ports.conf
+Listen 9090
+        Listen 443
+        Listen 443
+root@nodep1:/home/vagrant/nov19/apache2/files#
 
