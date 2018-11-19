@@ -148,7 +148,7 @@ from nodep1 execute
   puppet agent -t
 from puppet execute
   puppet cert list
-  puppet sign nodep1
+  puppet cert sign nodep1
   
 #### Force certificate recreation
 from puppet 
