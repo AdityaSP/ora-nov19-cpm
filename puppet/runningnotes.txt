@@ -116,4 +116,9 @@ Notice: Compiled catalog for nodep1 in environment production in 0.26 seconds
 Notice: Finished catalog run in 0.22 seconds
 root@nodep1:/home/vagrant/nov19#
 
+#Ordering
+->
+require
+before
+
 
