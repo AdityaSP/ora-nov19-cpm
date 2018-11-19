@@ -1,0 +1,25 @@
+
+https://puppet.com/docs/puppet/5.3/type.html
+Resource and type as File
+https://puppet.com/docs/puppet/5.3/type.html#file
+
+- First file ( create a manifest file)
+`
+vagrant@nodep1:~/nov19$ ls
+helloworld.pp
+vagrant@nodep1:~/nov19$ cat helloworld.pp
+file { '/tmp/helloworld.txt':
+  ensure => present
+}
+`
+
+### Run local puppet run
+vagrant@nodep1:~/nov19$ puppet apply helloworld.pp
+Warning: Could not retrieve fact fqdn
+Notice: Compiled catalog for nodep1 in environment production in 0.11 seconds
+Notice: /Stage[main]/Main/File[/tmp/helloworld.txt]/ensure: created
+Notice: Finished catalog run in 0.07 seconds
+vagrant@nodep1:~/nov19$ ls /tmp/helloworld.txt
+
+
+
