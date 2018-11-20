@@ -424,3 +424,20 @@ node /nodep[0-9]/ {
 root@puppet  /etc/puppet/environments/nov20dev
 
 $service puppetmaster restart 
+
+#### Install a module from puppet forge
+$puppet module install puppetlabs-vcsrepo --version 2.4.0
+Warning: Setting templatedir is deprecated. See http://links.puppetlabs.com/env-settings-deprecations
+   (at /usr/lib/ruby/vendor_ruby/puppet/settings.rb:1139:in `issue_deprecation_warning')
+Notice: Preparing to install into /etc/puppet/modules ...
+Notice: Downloading from https://forgeapi.puppetlabs.com ...
+Notice: Installing -- do not interrupt ...
+/etc/puppet/modules
+└── puppetlabs-vcsrepo (v2.4.0)
+
+root@puppet  /etc/puppet/modules
+$ls
+apache2  vars  vcsrepo
+
+
+
