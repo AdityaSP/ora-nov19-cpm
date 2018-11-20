@@ -277,4 +277,29 @@ class vars($uservariable) {
   notify{"user passed $uservariable":}
 }
 
+######## TEMPLATES ###########
+
+root@puppet  /etc/puppet/modules
+$cat vars/templates/f1.txt.erb
+username=<%= @uservariable %>
+
+root@puppet  /etc/puppet/modules
+$cat ../manifests/nodep1.pp
+
+node nodep1 {
+  notify{'Specific to nodep1':}
+  include apache2
+  #include vars
+  class{'vars':
+        uservariable => "scott"
+  }
+}
+root@puppet  /etc/puppet/modules
+$cat vars/manifests/init.pp
+class vars($uservariable) {
+  file {'/tmp/f1.txt':
+    content => template('vars/f1.txt.erb')
+  }
+}
+
 
