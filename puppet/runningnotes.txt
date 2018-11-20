@@ -162,5 +162,21 @@ from nodep1
   puppet agent -t
  
 
+### Node definitions
+
+root@puppet:/etc/puppet/manifests# cat site.pp import 'nodep1.pp'
+import 'default.pp'
+root@puppet:/etc/puppet/manifests# cat nodep1.pp
+
+node nodep1 {
+  notify{'Specific to nodep1':}
+}
+root@puppet:/etc/puppet/manifests# cat default.pp
+
+node default{
+  notify{'Welcome':}
+}
+root@puppet:/etc/puppet/manifests#
+
 
 
