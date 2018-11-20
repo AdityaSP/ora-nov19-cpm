@@ -360,3 +360,49 @@ class apache2($apache_port) {
   File['/etc/apache2/ports.conf'] ~> Service['apache2']
 }
 
+
+
+##### Environments
+root@puppet  /etc/puppet
+edit puppet.conf and add the below config
+environmentpath = $confdir/environments
+
+## Create environments folder
+root@puppet  /etc/puppet/environments
+$tree nov20dev nov20prod
+nov20dev
+├── manifests
+│   └── app.pp
+└── modules
+nov20prod
+├── manifests
+│   └── app.pp
+└── modules
+
+4 directories, 2 files
+
+root@puppet  /etc/puppet/environments
+$cp /etc/puppet/manifests/nodep1.pp nov20dev/manifests/app.pp
+
+root@puppet  /etc/puppet/environments
+$cp /etc/puppet/manifests/nodep1.pp nov20prod/manifests/app.pp
+
+# turn off site.pp
+# commet every line of site.pp or make site.pp empty
+# Restart puppet master
+
+root@puppet  /etc/puppet/environments
+$service puppetmaster restart
+ * Restarting puppet master                                                              [ OK ]
+
+# Trigger the agent run
+root@nodep1  /etc/apache2
+$puppet agent -t --environment nov20dev
+
+
+
+
+
+
+
+
