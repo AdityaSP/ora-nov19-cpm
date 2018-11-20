@@ -164,7 +164,8 @@ from nodep1
 
 ### Node definitions
 
-root@puppet:/etc/puppet/manifests# cat site.pp import 'nodep1.pp'
+root@puppet:/etc/puppet/manifests# cat site.pp 
+import 'nodep1.pp'
 import 'default.pp'
 root@puppet:/etc/puppet/manifests# cat nodep1.pp
 
