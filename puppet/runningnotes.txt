@@ -179,4 +179,18 @@ node default{
 root@puppet:/etc/puppet/manifests#
 
 
+### module on the puppetmaster
+
+root@puppet:/etc/puppet/modules# #scp -r vagrant@nodep1:~vagrant/nov19/apache2 .
+root@puppet:/etc/puppet/modules# ls
+apache2
+root@puppet:/etc/puppet/modules# cd ../manifests/
+root@puppet:/etc/puppet/manifests# cat nodep1.pp
+
+node nodep1 {
+  notify{'Specific to nodep1':}
+  include apache2
+}
+root@puppet:/etc/puppet/manifests#
+
 
