@@ -241,5 +241,40 @@ $cat myfacts.txt
 boxrole=webserver
 
 
+## If statements and parameterized classes
+root@puppet  /etc/puppet/modules
+$cat ../manifests/nodep1.pp
+
+node nodep1 {
+  notify{'Specific to nodep1':}
+  include apache2
+  #include vars
+  class{'vars':
+        uservariable => "my own value"
+  }
+}
+
+root@puppet  /etc/puppet/modules
+$cat vars/manifests/init.pp
+class vars($uservariable) {
+  $local_var = 8070
+  $ipaddress = 'some other value'
+  notify{"value is $local_var":}
+  notify{"ipadd is $::ipaddress":}
+  notify{"Custom fact boxrole $::boxrole":}
+
+  if $::boxrole == 'webserver' {
+    notify{"All things related to webserver":}
+  } else {
+    notify{"All things related to dbserver":}
+  }
+  if $::osfamily == 'Debian' {
+     notify{'some installation with Debian':}
+  } else {
+     notify{'installing httpd':}
+     package{'httpd':}
+  }
+  notify{"user passed $uservariable":}
+}
 
 
