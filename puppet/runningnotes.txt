@@ -408,7 +408,7 @@ hiera_config = $confdir/hiera.yaml
 #### Copy hiera.yaml from github to /etc/puppet
 
 #### 
-mkdir /etc/puppet/environments/nov20dev/heiradata
+mkdir /etc/puppet/environments/nov20dev/hieradata
 root@puppet  /etc/puppet/environments/nov20dev
 $cat hieradata/defaults.yaml
 
@@ -424,12 +424,3 @@ node /nodep[0-9]/ {
 root@puppet  /etc/puppet/environments/nov20dev
 
 $service puppetmaster restart 
-
-
-
-
-
-
-
-
-
