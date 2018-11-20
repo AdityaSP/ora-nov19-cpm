@@ -302,4 +302,61 @@ class vars($uservariable) {
   }
 }
 
+#### APACHE2 exercise
+Templates
+1. Create a template
+    1.1 create folder "templates" within apache
+    1.2 place ports.conf as ports.conf.erb
+    1.3 replace port with $apache_port
+2. use the template
+    2.1 init.pp of apache2 module
+        use template
+    2.2 make apache2 as a parameterized class
+    
+3. call apache2 module and pass apache_port
+
+##### SOLUTION ##################
+
+
+
+
+root@puppet  /etc/puppet
+$cat manifests/nodep1.pp
+
+node nodep1 {
+  notify{'Specific to nodep1':}
+  class {'apache2': apache_port => 9090}
+  class{'vars':
+        uservariable => "scott"
+  }
+}
+
+root@puppet  /etc/puppet
+$grep Listen modules/apache2/templates/ports.conf.erb
+Listen <%= @apache_port %>
+        Listen 443
+        Listen 443
+
+root@puppet  /etc/puppet
+$cat modules/apache2/manifests/init.pp
+class apache2($apache_port) {
+
+  notify{'Executing apache2 class':}
+
+  package{'apache2':}
+
+  file{'/etc/apache2/ports.conf':
+    content => template('apache2/ports.conf.erb'),
+    ensure => present,
+  }
+
+  service{'apache2':
+    ensure => running,
+  }
+
+
+  Package['apache2'] -> File['/etc/apache2/ports.conf']
+  Package['apache2'] -> Service['apache2']
+  File['/etc/apache2/ports.conf'] ~> Service['apache2']
+}
 
