@@ -222,4 +222,24 @@ node nodep1 {
   include vars
 }
 
+### Facts and custom facts
+root@puppet  /etc/puppet/modules
+$cat vars/manifests/init.pp
+class vars {
+  $local_var = 8070
+  $ipaddress = 'some other value'
+  notify{"value is $local_var":}
+  notify{"ipadd is $::ipaddress":}
+  notify{"Custom fact boxrole $::boxrole":}
+}
+
+root@nodep1  /etc/facter/facts.d
+$#create if not exists
+
+root@nodep1  /etc/facter/facts.d
+$cat myfacts.txt
+boxrole=webserver
+
+
+
 
