@@ -195,3 +195,31 @@ node nodep1 {
 root@puppet:/etc/puppet/manifests#
 
 
+### Working with variables
+### Create a module for vars and include it
+
+root@puppet  /etc/puppet/modules
+$#puppet module generate sp-vars              
+root@puppet  /etc/puppet/modules
+$#mv sp-vars vars                             
+root@puppet  /etc/puppet/modules
+$ls
+apache2  vars
+
+root@puppet  /etc/puppet/modules
+$cat vars/manifests/init.pp
+class vars {
+  $local_var = 8070
+  notify{"value is $local_var":}
+}
+
+root@puppet  /etc/puppet/modules
+$cat ../manifests/nodep1.pp
+
+node nodep1 {
+  notify{'Specific to nodep1':}
+  include apache2
+  include vars
+}
+
+
