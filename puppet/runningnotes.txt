@@ -399,6 +399,33 @@ $service puppetmaster restart
 root@nodep1  /etc/apache2
 $puppet agent -t --environment nov20dev
 
+#### ENABLING HIERA ###########
+
+root@puppet  /etc/puppet
+$grep hiera puppet.conf
+hiera_config = $confdir/hiera.yaml
+
+#### Copy hiera.yaml from github to /etc/puppet
+
+#### 
+mkdir /etc/puppet/environments/nov20dev/heiradata
+root@puppet  /etc/puppet/environments/nov20dev
+$cat hieradata/defaults.yaml
+
+apache_port: 9191
+
+$cat manifests/app.pp
+
+node /nodep[0-9]/ {
+  notify{'Specific to nodep1':}
+  class {'apache2': apache_port => hiera('apache_port')}
+}
+
+root@puppet  /etc/puppet/environments/nov20dev
+
+$service puppetmaster restart 
+
+
 
 
 
