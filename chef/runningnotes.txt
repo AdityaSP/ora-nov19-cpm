@@ -59,3 +59,30 @@ Running handlers:
 Running handlers complete
 Chef Client finished, 0/2 resources updated in 02 seconds
 
+########### Multiple files in a cookbook
+
+vagrant@33m~/nov21/cookbooks/apache2/recipes
+$ cat default.rb
+package 'apache2' do
+  action :install
+end
+cookbook_file '/etc/apache2/ports.conf' do
+  source 'ports.conf'
+  action :create
+end
+service 'apache2' do
+  action :restart
+end
+
+vagrant@33m~/nov21/cookbooks/apache2/recipes
+$ cat stop.rb
+
+service 'apache2' do
+  action :stop
+end
+
+$ sudo chef-client --local-mode --runlist 'recipe[apache2::default]'
+
+
+$ sudo chef-client --local-mode --runlist 'recipe[apache2::stop]'
+
