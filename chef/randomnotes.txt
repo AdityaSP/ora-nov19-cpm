@@ -1,0 +1,33 @@
+1. workstation : install chef-dk
+2. workstation : create a cookbook in cookbooks folder
+$chef generate cookbook apache2
+3. chef-server : install chef-server
+3. chef-server : create a user -- this will give admin.pem
+4. chef-server : create an org (devopsdemo) and associate the previously created user
+5. workstation : create .chef and copy knife.rb and admin.pem
+6. workstation : knife ssl fetch and knife ssl check
+7. workstation : knife cookbook upload apache2
+8. bring up node
+9. workstation : knife bootstrap -> on the node install chef-client, create client.rb and client.pem and trigger a chef-client run
+10. workstation : knife node set run_list node1-ubuntu 'recipe[apache2]'
+11. workstation : knife ssh <ip of node> 'sudo chef-client' --ssh-user 
+
+
+windows support --- chef is a winner 
+ease of use --- puppet 
+
+puppet
+node puppet agent -t ... facter sends all facts to the server
+on the server use the fact + hieara data + compile manifest => catalog 
+
+
+chef --- thin server and thick client
+server does no job 
+
+chef is more scalable than puppet
+
+infra needs --- chef is more resource consuming
+
+
+
+---------- chef, puppet -- mco 
