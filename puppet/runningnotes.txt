@@ -473,6 +473,84 @@ node /nodep[0-9]/ {
 192.168.33.51:9191/html/nov21
 192.168.33.51:8181/html/nov21
 
+###### Enable db server on nodep2
+puppet
+1. module called mysql
+    1.1  apt-get install mysql-server
+    1.1 service mysql status
+2. app.pp
+    2.1 boxrole==dbserver
+    2.2 on nodep2 make a fact change from webserver dbserver
+    2.3 git checkout from puppetcode and dump it to any directory /tmp/proj
+    2.4 mysql -uroot < /tmp/proj/databaserelease.sql
+3. on nodep2
+    puppet agent -t
+    
+####### Solution
+## Create module
+root@puppet  /etc/puppet/modules
+$ puppet module generate sp-mysql
+
+## make changes in app.pp
+
+root@puppet  /etc/puppet/environments/nov20dev/manifests
+$ cat app.pp
+
+node /nodep[0-9]/ {
+    exec{'apt-get update':
+       path => '/usr/bin'
+    }
+  if $::boxrole == 'webserver' {
+
+    package{'git':}
+
+    vcsrepo { '/var/www/html/nov21':
+      ensure   => latest,
+      provider => git,
+      source   => 'https://github.com/AdityaSP/puppetcode',
+      revision => 'master',
+    }
+
+    notify{"Specific to $clientcert":}
+    class {'apache2': apache_port => hiera('apache_port')}
+
+    Exec['apt-get update']->Class['apache2']
+    Exec['apt-get update']->Package['git']
+    Package['git']->Vcsrepo['/var/www/html/nov21']
+    Class['apache2']->Vcsrepo['/var/www/html/nov21']
+  }
+  if $::boxrole == 'dbserver' {
+    include mysql
+
+    package{'git':}->
+    vcsrepo { '/tmp/proj/':
+      ensure   => latest,
+      provider => git,
+      source   => 'https://github.com/AdityaSP/puppetcode',
+      revision => 'master',
+    }->
+    exec{'/usr/bin/mysql -uroot < /tmp/proj/databaserelease.sql':}
+
+    Exec['apt-get update']->Class[mysql]
+    Exec['apt-get update']->Package[git]
+    Class['mysql']->Vcsrepo['/tmp/proj/']
+  }
+}
+
+root@puppet  /etc/puppet/environments/nov20dev/manifests
+$
+
+
+############ Make fact changes
+
+root@nodep2:/home/vagrant# cat /etc/facter/facts.d/myconf.txt
+boxrole=dbserver
+root@nodep2:/home/vagrant#
+
+########## Run puppet agent
+puppet agent -t --environment nov20dev
+
+
 
 
 
