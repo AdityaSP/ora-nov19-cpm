@@ -121,4 +121,15 @@ $ knife cookbook upload apache2
 Uploading apache2        [0.1.0]
 Uploaded 1 cookbook.
 
+vagrant@33m~/nov21/cookbooks
+$ knife node list
+
+
+vagrant@33m~/nov21/cookbooks
+$ knife bootstrap 10.1.1.34 --ssh-user vagrant --sudo --node-name node1-ubuntu
+
+vagrant@33m~/nov21/cookbooks
+$ knife node list
+node1-ubuntu
+
 
