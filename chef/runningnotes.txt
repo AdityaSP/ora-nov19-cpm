@@ -102,11 +102,6 @@ vagrant@33m~/nov21/.chef
 
 
 vagrant@33m~/nov21
-$ knife ssl check
-Connecting to host chef-server.test:443
-Successfully verified certificates from `chef-server.test'
-
-vagrant@33m~/nov21
 $ knife ssl fetch
 WARNING: Certificates from chef-server.test will be fetched and placed in your trusted_cert
 directory (/home/vagrant/nov21/.chef/trusted_certs).
