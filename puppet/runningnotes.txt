@@ -439,5 +439,40 @@ root@puppet  /etc/puppet/modules
 $ls
 apache2  vars  vcsrepo
 
+#### Take code from git repo
+root@puppet  /etc/puppet/environments
+$ cat nov20dev/manifests/app.pp
+
+node /nodep[0-9]/ {
+  if $::boxrole == 'webserver' {
+
+    package{'git':}
+
+    vcsrepo { '/var/www/html/nov21':
+      ensure   => latest,
+      provider => git,
+      source   => 'https://github.com/AdityaSP/puppetcode',
+      revision => 'master',
+    }
+
+    exec{'apt-get update':
+       path => '/usr/bin'
+    }
+    notify{"Specific to $clientcert":}
+    class {'apache2': apache_port => hiera('apache_port')}
+
+    Exec['apt-get update']->Class['apache2']
+    Exec['apt-get update']->Package['git']
+    Package['git']->Vcsrepo['/var/www/html/nov21']
+    Class['apache2']->Vcsrepo['/var/www/html/nov21']
+  }
+}
+
+### Access the browser
+192.168.33.51:<port no>/html/nov21
+192.168.33.51:9191/html/nov21
+192.168.33.51:8181/html/nov21
+
+
 
 
