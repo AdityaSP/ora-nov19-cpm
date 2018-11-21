@@ -15,3 +15,16 @@ Recipe: (chef-apply cookbook)::(chef-apply recipe)
     @@ -1 +1,2 @@
     +Hello world
 
+################### Creating a cookbook
+vagrant@33m~/nov21
+$ mkdir cookbooks
+
+vagrant@33m~/nov21
+$ ls
+cookbooks  helloworld.rb
+
+vagrant@33m~/nov21
+$ cd cookbooks
+
+vagrant@33m~/nov21/cookbooks
+$ chef generate cookbook apache2
