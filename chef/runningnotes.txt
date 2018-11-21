@@ -28,3 +28,14 @@ $ cd cookbooks
 
 vagrant@33m~/nov21/cookbooks
 $ chef generate cookbook apache2
+########### Make a recipe entry in default.rb
+vagrant@33m~/nov21/cookbooks/apache2
+$ cat recipes/default.rb
+file '/tmp/f1.txt' do
+  content 'Hello world'
+  action :create
+end
+
+service 'apache2' do
+  action :start
+end
