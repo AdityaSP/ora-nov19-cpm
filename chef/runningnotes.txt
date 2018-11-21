@@ -116,4 +116,9 @@ $ knife ssl check
 Connecting to host chef-server.test:443
 Successfully verified certificates from `chef-server.test'
 
+vagrant@33m~/nov21/cookbooks
+$ knife cookbook upload apache2
+Uploading apache2        [0.1.0]
+Uploaded 1 cookbook.
+
 
