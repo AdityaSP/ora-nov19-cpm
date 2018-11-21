@@ -133,3 +133,36 @@ $ knife node list
 node1-ubuntu
 
 
+#### SET RUN LIST ###########
+vagrant@33m~/nov21/cookbooks
+$ knife node show node1-ubuntu
+Node Name:   node1-ubuntu
+Environment: _default
+FQDN:        node1-ubuntu
+IP:          10.0.2.15
+Run List:
+Roles:
+Recipes:
+Platform:    ubuntu 14.04
+Tags:
+
+vagrant@33m~/nov21/cookbooks
+$ knife node run_list set node1-ubuntu 'recipe[apache2]'                        node1-ubuntu:
+  run_list: recipe[apache2]
+
+vagrant@33m~/nov21/cookbooks
+$ knife node show node1-ubuntu
+Node Name:   node1-ubuntu
+Environment: _default
+FQDN:        node1-ubuntu
+IP:          10.0.2.15
+Run List:    recipe[apache2]
+Roles:
+Recipes:
+Platform:    ubuntu 14.04
+Tags:
+
+vagrant@33m~/nov21/cookbooks
+$
+
+
