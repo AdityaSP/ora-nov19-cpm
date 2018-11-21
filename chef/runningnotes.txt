@@ -101,4 +101,24 @@ drwxrwxr-x 2 vagrant vagrant 4096 Nov 21 09:08 .
 vagrant@33m~/nov21/.chef
 
 
+vagrant@33m~/nov21
+$ knife ssl check
+Connecting to host chef-server.test:443
+Successfully verified certificates from `chef-server.test'
+
+vagrant@33m~/nov21
+$ knife ssl fetch
+WARNING: Certificates from chef-server.test will be fetched and placed in your trusted_cert
+directory (/home/vagrant/nov21/.chef/trusted_certs).
+
+Knife has no means to verify these are the correct certificates. You should
+verify the authenticity of these certificates after downloading.
+
+Adding certificate for chef-server_test in /home/vagrant/nov21/.chef/trusted_certs/chef-server_test.crt
+
+vagrant@33m~/nov21
+$ knife ssl check
+Connecting to host chef-server.test:443
+Successfully verified certificates from `chef-server.test'
+
 
