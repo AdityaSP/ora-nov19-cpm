@@ -86,3 +86,19 @@ $ sudo chef-client --local-mode --runlist 'recipe[apache2::default]'
 
 $ sudo chef-client --local-mode --runlist 'recipe[apache2::stop]'
 
+
+#### Work with chef-server
+1. vagrant up of chef-server
+2. from workstation - copy and paste knife.rb and admin.pem from https://github.com/AdityaSP/ora-nov19-cpm/chef
+vagrant@33m~/nov21/.chef
+$ ls -ltra
+total 16
+drwxrwxr-x 5 vagrant vagrant 4096 Nov 21 09:06 ..
+-rw-rw-r-- 1 vagrant vagrant  425 Nov 21 09:08 knife.rb
+-rw-rw-r-- 1 vagrant vagrant 1675 Nov 21 09:08 admin.pem
+drwxrwxr-x 2 vagrant vagrant 4096 Nov 21 09:08 .
+
+vagrant@33m~/nov21/.chef
+
+
+
