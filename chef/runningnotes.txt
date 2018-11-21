@@ -39,3 +39,23 @@ end
 service 'apache2' do
   action :start
 end
+
+######### Run the cookbook
+vagrant@33m~/nov21
+$ sudo chef-client --local-mode --runlist 'recipe[apache2]'
+[2018-11-21T07:17:21+00:00] WARN: No config file found or specified on command line, using command line options.
+Starting Chef Client, version 12.16.42
+resolving cookbooks for run list: ["apache2"]
+Synchronizing Cookbooks:
+  - apache2 (0.1.0)
+Installing Cookbook Gems:
+Compiling Cookbooks...
+Converging 2 resources
+Recipe: apache2::default
+  * file[/tmp/f1.txt] action create (up to date)
+  * service[apache2] action start (up to date)
+
+Running handlers:
+Running handlers complete
+Chef Client finished, 0/2 resources updated in 02 seconds
+
