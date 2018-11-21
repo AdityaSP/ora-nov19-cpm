@@ -165,4 +165,7 @@ Tags:
 vagrant@33m~/nov21/cookbooks
 $
 
+########### Trigger a chef-client run
+vagrant@33m~/nov21/cookbooks
+$ knife ssh 10.1.1.34 'sudo chef-client' --ssh-user vagrant --manual-list
 
