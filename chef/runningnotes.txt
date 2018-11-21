@@ -1,1 +1,17 @@
 
+$ cat helloworld.rb
+file '/tmp/f1.txt' do
+  content 'Hello world'
+  action :create
+end
+
+$ chef-apply helloworld.rb
+Recipe: (chef-apply cookbook)::(chef-apply recipe)
+  * file[/tmp/f1.txt] action create
+    - create new file /tmp/f1.txt
+    - update content in file /tmp/f1.txt from none to 64ec88
+    --- /tmp/f1.txt     2018-11-21 06:50:50.843300171 +0000
+    +++ /tmp/.chef-f120181121-3054-194pjkx.txt  2018-11-21 06:50:50.839300113 +0000
+    @@ -1 +1,2 @@
+    +Hello world
+
