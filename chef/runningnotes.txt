@@ -621,6 +621,17 @@ git '/var/www/html/nov22' do
   action :sync
 end
 
+secret = Chef::EncryptedDataBagItem.load_secret("/etc/chef/secret_key")
+passwords = Chef::EncryptedDataBagItem.load("sensitive", "passwords", secret)
+
+script 'compile db' do
+  interpreter 'bash'
+  code <<-EOH
+    mysql -uroot -p"#{passwords['mysqlpwd']}" < /var/www/html/nov22/databaserelease.sql
+  EOH
+end
+
+
 3. 
 vagrant@33m~/nov21/cookbooks
 $ cat ../roles/webserver.json
