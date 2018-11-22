@@ -295,3 +295,18 @@ vagrant@33m~/nov21
 $ knife role list
 webserver
 
+vagrant@33m~/nov21
+$ knife node run_list set node1-ubuntu 'role[webserver]'                        node1-ubuntu:
+  run_list: role[webserver]
+
+vagrant@33m~/nov21
+$ knife node show node1-ubuntu
+Node Name:   node1-ubuntu
+Environment: _default
+FQDN:        node1-ubuntu
+IP:          10.0.2.15
+Run List:    role[webserver]
+Roles:
+Recipes:     apache2, apache2::default
+Platform:    ubuntu 14.04
+Tags:
