@@ -484,3 +484,28 @@ $ knife search logins "*home*:*user99*"
 vagrant@33m~/nov21/data_bags/logins
 $ knife search logins '*:*'
 
+### Using a databag in recipe
+
+vagrant@33m~/nov21/cookbooks
+$ cat users/recipes/default.rb
+logins = search('logins', '*:*')
+
+logins.each do |login|
+  user login['id'] do
+    home login['home']
+    shell login['shell']
+    gid 900
+    password '$1$dpbJZrOb$2l7JgeYPOhtc6ZqygjplQ1'
+  end
+
+  directory login['home'] do
+    owner login['id']
+    group 'vagrant'
+    mode '0755'
+    action :create
+  end
+end
+
+vagrant@33m~/nov21/cookbooks
+$
+
