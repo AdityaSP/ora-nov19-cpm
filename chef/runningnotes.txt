@@ -367,3 +367,57 @@ Updated Environment prod
 vagrant@33m~/nov21/environments
 $ knife ssh 10.1.1.34 "sudo chef-client -E dev" --ssh-user vagrant --manual-list
 
+
+########### User creation ##############
+openssl passwd -1 'welcome'
+
+vagrant@33m~/nov21
+$ #chef generate cookbook users                                                 
+vagrant@33m~/nov21
+$ cd cookbooks/
+
+vagrant@33m~/nov21/cookbooks
+$ #chef generate cookbook users
+
+vagrant@33m~/nov21/cookbooks
+$ cat users/recipes/
+cat: users/recipes/: Is a directory
+
+vagrant@33m~/nov21/cookbooks
+$ cat users/recipes/default.rb
+
+user 'user99' do
+  home '/home/user99'
+  shell '/bin/bash'
+  gid 900
+  password '$1$dpbJZrOb$2l7JgeYPOhtc6ZqygjplQ1'
+end
+
+directory '/home/user99' do
+  owner 'user99'
+  group 'vagrant'
+  mode '0755'
+  action :create
+end
+
+vagrant@33m~/nov21/cookbooks
+$ cd ..
+
+vagrant@33m~/nov21
+$ cat roles/webserver.json
+{
+ "name": "webserver",
+ "json_class": "Chef::Role",
+ "chef_type": "role",
+ "run_list" : [ "recipe[apache2]", "recipe[users]" ],
+ "default_attributes": {
+    "apache_port" : 9999
+  }
+}
+
+vagrant@33m~/nov21
+$ knife role from file roles/webserver.json
+Updated Role webserver
+
+vagrant@33m~/nov21
+$ #knife ssh 10.1.1.34 "sudo chef-client -E prod" --ssh-user vagrant --manual-list
