@@ -571,3 +571,36 @@ Encrypted data bag detected, decrypting with provided secret.
 id:       passwords
 mysqlpwd: root
 
+
+############# USE THE SECRET PASSWORD IN RECIPES
+
+root@node1-ubuntu:/etc/chef# scp vagrant@10.1.1.32:/home/vagrant/nov21/data_bags/secret_key .
+vagrant@10.1.1.32's password:
+secret_key                                    100%  684     0.7KB/s   00:00
+root@node1-ubuntu:/etc/chef# ls
+client.pem  encrypted_data_bag_secret  mysecret     secret_key
+client.rb   first-boot.json            secret_file  trusted_certs
+root@node1-ubuntu:/etc/chef#
+
+
+STEP2 : 
+Add the below lines to users/recipes/defualt.rb
+
+secret = Chef::EncryptedDataBagItem.load_secret("/etc/chef/secret_key")
+passwords = Chef::EncryptedDataBagItem.load("sensistive", "passwords", secret)
+log "decrypted password is #{passwords['mysqlpwd']"
+
+
+STEP3 : 
+upload the cookbook
+vagrant@33m~/nov21/cookbooks/users
+$ knife cookbook upload users
+
+STEP4:
+Run the cookbook.
+vagrant@33m~/nov21/cookbooks/users
+$ knife ssh 10.1.1.34 "sudo chef-client -E prod" --ssh-user vagrant --manual-list
+
+
+
+
