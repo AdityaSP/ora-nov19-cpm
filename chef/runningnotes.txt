@@ -231,14 +231,7 @@ $ sudo chef-client --local-mode --runlist 'recipe[attr]'
 
 ############ Templates in apache2 cookbook #############
 vagrant@33m~/nov21/cookbooks/apache2
-$ mkdir templates
-
-vagrant@33m~/nov21/cookbooks/apache2
-$ cp files/ports.conf templates/ports.conf.erb
-
-vagrant@33m~/nov21/cookbooks/apache2
-$ vi templates/ports.conf.erb
-
+$ #cp files/ports.conf templates/ports.conf.erb                                 
 vagrant@33m~/nov21/cookbooks/apache2
 $ grep Listen templates/ports.conf.erb
 Listen <%= @node['apache_port'] %>
@@ -246,7 +239,11 @@ Listen <%= @node['apache_port'] %>
         Listen 443
 
 vagrant@33m~/nov21/cookbooks/apache2
-$ vi recipes/default.rb
+$ #mkdir attributes
+
+vagrant@33m~/nov21/cookbooks/apache2
+$ cat attributes/default.rb
+default['apache_port']=9191
 
 vagrant@33m~/nov21/cookbooks/apache2
 $ cat recipes/default.rb
@@ -263,3 +260,13 @@ end
 service 'apache2' do
   action :restart
 end
+
+vagrant@33m~/nov21/cookbooks/apache2
+$ grep 0.2.0 metadata.rb
+version '0.2.0'
+
+vagrant@33m~/nov21/cookbooks/apache2
+$ #knife cookbook upload apache2
+
+vagrant@33m~/nov21/cookbooks/apache2
+$ #knife ssh 10.1.1.34 "sudo chef-client" --ssh-user vagrant --manual-list      
