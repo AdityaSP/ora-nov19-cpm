@@ -169,3 +169,19 @@ $
 vagrant@33m~/nov21/cookbooks
 $ knife ssh 10.1.1.34 'sudo chef-client' --ssh-user vagrant --manual-list
 
+
+#### WORKING WITH ATTRIBUTES ###############
+## Accessing Ohai Attributes
+vagrant@33m~/nov21/cookbooks
+$ #chef generate cookbook attr
+
+vagrant@33m~/nov21/cookbooks
+$ cat attr/recipes/default.rb
+
+# String interpolation "asdlfjd #{var_name}"
+log "some log message #{node['kernel']['name']}"
+log "some log message #{node['kernel']['os']}"
+
+vagrant@33m~/nov21/cookbooks
+$ #sudo chef-client --local-mode --runlist 'recipe[attr]'
+
