@@ -329,3 +329,40 @@ $ cat roles/webserver.json
 
 vagrant@33m~/nov21
 $ #knife ssh 10.1.1.34 "sudo chef-client" --ssh-user vagrant --manual-list      
+
+
+########## Environment
+vagrant@33m~/nov21/environments
+$ cat dev.json
+{
+ "name": "dev",
+ "json_class": "Chef::Environment",
+ "chef_type": "environment",
+ "override_attributes": {
+    "apache_port" : 9595
+  }
+}
+
+
+vagrant@33m~/nov21/environments
+$ cat prod.json
+{
+ "name": "dev",
+ "json_class": "Chef::Environment",
+ "chef_type": "environment",
+ "override_attributes": {
+    "apache_port" : 9898
+  }
+}
+
+
+vagrant@33m~/nov21/environments
+$ knife environment from file dev.json
+Updated Environment dev
+
+vagrant@33m~/nov21/environments
+$ knife environment from file prod.json
+Updated Environment dev
+
+vagrant@33m~/nov21/environments
+$
