@@ -355,7 +355,6 @@ $ cat prod.json
   }
 }
 
-
 vagrant@33m~/nov21/environments
 $ knife environment from file dev.json
 Updated Environment dev
@@ -516,4 +515,59 @@ Uploaded 1 cookbook.
 
 vagrant@33m~/nov21/cookbooks
 $ #knife ssh 10.1.1.34 "sudo chef-client -E prod" --ssh-user vagrant --manual-list
+
+
+### Encrypted Data bag items
+##### ENCRYPTED DATABAGS
+
+vagrant@33m~/nov21/data_bags
+$ mkdir sensitive
+
+vagrant@33m~/nov21/data_bags
+$ knife data_bag create sensitive
+Created data_bag[sensitive]
+
+vagrant@33m~/nov21/data_bags
+
+vagrant@33m~/nov21/data_bags
+$ openssl rand -base64 512 | tr -d '\r\n' > secret_key
+
+vagrant@33m~/nov21/data_bags
+$ cat secret_key
+JZHl+ROf3M4+MJL0lp0kyHg66KTLInmQVhRZUXrcyeucadpAMLDrBXKjoiBHqsiwGpfSpiKcOCtvyCIp6KT/nUaKPfyPusjWVYtiQDdlX47D79ixdjFZHA2A5j6wBuOhyKbjWTnqZM/aMbLSB1QEq5rLkPzORSgqf0ORZtBQzveWhglVbMH27OT3xjIfsoOOoWN5twjobPOcii+r7dGFTMBx+u++ey2ZeWhbPkwLHH9ZhNWGFtJ+UsrLNvh8sSUQJI9O6SdrzW5D447oZKr23VhQqX/TCaHaDbqWeVB/4r3K7/cZCkUxQ1cT08WWbnga8PMbGhX1bnEvq7AAEtw6HILUCNviQTcbc7omOGIL8mhYx8RABTOk0FoLI98HfwQlLxdnoS2+IEvLkf54+lOHjuOOwO3HYjNUcPiboR6piC6UtJTUrqJSfcUSBbXwfneNSw7VlQOedxW9kVXn6HYOOuGaLiw35wKcA1xNaRSRcE6Qrw+aea0yJ4RgM+sNF+2YBRvQttLm7Akm1BW/TCp2OAJjV7zpETEfi9bLL31Ey7M/xbvzIW1cOxAbiVq9kSBLQHdbzRLZDsl5Vt0aGhoIZlvRfwBO7UDCKcF1rINCjvDP2sMO6TaTfIQU2PAp4p1Ts7Pud9or7Xj2rT17OyLkkVU1Rtw3rmZ0hSSsi+w3zGs=
+vagrant@33m~/nov21/data_bags
+$ cat sensitive/passwords.json
+{
+   "id": "passwords",
+   "mysqlpwd": "root"
+}
+
+vagrant@33m~/nov21/data_bags
+$ knife data_bag list
+logins
+sensitive
+
+
+
+vagrant@33m~/nov21/data_bags
+$ knife data_bag from file sensitive sensitive/passwords.json --secret-file secret_key
+Updated data_bag_item[sensitive::passwords]
+
+vagrant@33m~/nov21/data_bags
+$ knife data_bag show sensitive passwords
+WARNING: Encrypted data bag detected, but no secret provided for decoding. Displaying encrypted data.
+id:       passwords
+mysqlpwd:
+  cipher:         aes-256-cbc
+  encrypted_data: P5Y+YOtJJ+NaquqcX8C7BlUV/9DjvB+6H4wKGrbBcWo=
+
+  iv:             HVtqOZOfQI88deZ7PwEDPA==
+
+  version:        1
+
+vagrant@33m~/nov21/data_bags
+$ knife data_bag show sensitive passwords --secret-file secret_key
+Encrypted data bag detected, decrypting with provided secret.
+id:       passwords
+mysqlpwd: root
 
