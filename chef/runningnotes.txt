@@ -587,7 +587,7 @@ STEP2 :
 Add the below lines to users/recipes/defualt.rb
 
 secret = Chef::EncryptedDataBagItem.load_secret("/etc/chef/secret_key")
-passwords = Chef::EncryptedDataBagItem.load("sensistive", "passwords", secret)
+passwords = Chef::EncryptedDataBagItem.load("sensitive", "passwords", secret)
 log "decrypted password is #{passwords['mysqlpwd']}"
 
 
