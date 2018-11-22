@@ -197,3 +197,33 @@ $ vi attributes/default.rb
 vagrant@33m~/nov21/cookbooks/attr
 $ cat attributes/default.rb
 default['apache_port']=8181
+
+
+
+### Templates
+
+vagrant@33m~/nov21/cookbooks
+$ cat attr/attributes/default.rb
+#default['apache_port']=8181
+normal['apache_port']=8181
+
+vagrant@33m~/nov21/cookbooks
+$ cat attr/templates/some.cnf.erb
+port_num=<%= @node['apache_port'] %>
+
+vagrant@33m~/nov21/cookbooks
+$ cat attr/recipes/default.rb
+
+node.default['apache_port']=9191
+
+# String interpolation "asdlfjd #{var_name}"
+log "some log message #{node['kernel']['name']}"
+log "some log message #{node['kernel']['os']}"
+log "I want set apache port as #{node['apache_port']}"
+
+template '/tmp/some.cnf' do
+  source 'some.cnf.erb'
+end
+
+vagrant@33m~/nov21/cookbooks
+$ sudo chef-client --local-mode --runlist 'recipe[attr]'
