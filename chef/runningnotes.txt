@@ -310,3 +310,22 @@ Roles:
 Recipes:     apache2, apache2::default
 Platform:    ubuntu 14.04
 Tags:
+
+
+##### Role with variables
+
+vagrant@33m~/nov21
+$ cat roles/webserver.json
+{
+ "name": "webserver",
+ "json_class": "Chef::Role",
+ "chef_type": "role",
+ "run_list" : [ "recipe[apache2]" ],
+ "default_attributes": {
+    "apache_port" : 9999
+  }
+}
+
+
+vagrant@33m~/nov21
+$ #knife ssh 10.1.1.34 "sudo chef-client" --ssh-user vagrant --manual-list      
