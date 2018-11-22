@@ -468,4 +468,19 @@ shell: /bin/bash
 
 vagrant@33m~/nov21/data_bags/logins
 $
+######### SEARCHING 
+vagrant@33m~/nov21/data_bags/logins
+$ knife search node "*:*"
+
+vagrant@33m~/nov21/data_bags/logins
+$ knife search node "*:*" --long
+
+vagrant@33m~/nov21/data_bags/logins
+$ knife search node "*role*:*webserver*"
+
+vagrant@33m~/nov21/data_bags/logins
+$ knife search logins "*home*:*user99*"
+
+vagrant@33m~/nov21/data_bags/logins
+$ knife search logins '*:*'
 
