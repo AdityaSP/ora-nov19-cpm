@@ -421,3 +421,32 @@ Updated Role webserver
 
 vagrant@33m~/nov21
 $ #knife ssh 10.1.1.34 "sudo chef-client -E prod" --ssh-user vagrant --manual-list
+
+################# Data bags ############
+vagrant@33m~/nov21
+$ #mkdir data_bags
+
+vagrant@33m~/nov21
+$ cd data_bags/
+
+vagrant@33m~/nov21/data_bags
+$ mkdir logins
+
+vagrant@33m~/nov21/data_bags
+$ cat logins/user99.json
+{
+  "id": "user99",
+  "home": "/home/user99",
+  "shell": "/bin/bash"
+}
+
+vagrant@33m~/nov21/data_bags
+
+vagrant@33m~/nov21/data_bags
+$ knife data_bag create logins
+
+vagrant@33m~/nov21/data_bags/logins
+$ knife data_bag from file logins user99.json
+Updated data_bag_item[logins::user99]
+
+
