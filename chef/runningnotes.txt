@@ -185,3 +185,15 @@ log "some log message #{node['kernel']['os']}"
 vagrant@33m~/nov21/cookbooks
 $ #sudo chef-client --local-mode --runlist 'recipe[attr]'
 
+vagrant@33m~/nov21/cookbooks/attr
+$ mkdir attributes
+
+vagrant@33m~/nov21/cookbooks/attr
+$ touch attributes/default.rb
+
+vagrant@33m~/nov21/cookbooks/attr
+$ vi attributes/default.rb
+
+vagrant@33m~/nov21/cookbooks/attr
+$ cat attributes/default.rb
+default['apache_port']=8181
