@@ -602,5 +602,57 @@ vagrant@33m~/nov21/cookbooks/users
 $ knife ssh 10.1.1.34 "sudo chef-client -E prod" --ssh-user vagrant --manual-list
 
 
+##### FINAL DEPLOYMENT 
+1. created deploy
+vagrant@33m~/nov21/cookbooks
+$ #chef generate cookbook deploy
+
+2. 
+vagrant@33m~/nov21/cookbooks
+$ cat deploy/recipes/default.rb
+
+package 'git' do
+  action :install
+end
+
+git '/var/www/html/nov22' do
+  repository 'https://github.com/AdityaSP/puppetcode'
+  revision 'master'
+  action :sync
+end
+
+3. 
+vagrant@33m~/nov21/cookbooks
+$ cat ../roles/webserver.json
+{
+ "name": "webserver",
+ "json_class": "Chef::Role",
+ "chef_type": "role",
+ "run_list" : [
+       "recipe[apache2]",
+       "recipe[users]",
+       "recipe[deploy]"
+  ],
+ "default_attributes": {
+    "apache_port" : 9999
+  }
+}
+
+
+vagrant@33m~/nov21/cookbooks
+$ knife role from file ../roles/webserver.json
+Updated Role webserver
+
+vagrant@33m~/nov21/cookbooks
+$
+
+3.
+vagrant@33m~/nov21/cookbooks
+$ knife ssh 10.1.1.34 "sudo chef-client -E prod" --ssh-user vagrant --manual-list
+
+
+
+
+
 
 
