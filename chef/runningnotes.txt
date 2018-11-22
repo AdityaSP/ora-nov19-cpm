@@ -449,4 +449,23 @@ vagrant@33m~/nov21/data_bags/logins
 $ knife data_bag from file logins user99.json
 Updated data_bag_item[logins::user99]
 
+vagrant@33m~/nov21/data_bags/logins
+$ knife data_bag list
+logins
+
+vagrant@33m~/nov21/data_bags/logins
+$ knife data_bag show logins
+user97
+user98
+user99
+
+vagrant@33m~/nov21/data_bags/logins
+$ knife data_bag show logins user97
+WARNING: Unencrypted data bag detected, ignoring any provided secret options.
+home:  /home/user97
+id:    user97
+shell: /bin/bash
+
+vagrant@33m~/nov21/data_bags/logins
+$
 
