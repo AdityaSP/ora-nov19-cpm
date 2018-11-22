@@ -347,7 +347,7 @@ $ cat dev.json
 vagrant@33m~/nov21/environments
 $ cat prod.json
 {
- "name": "dev",
+ "name": "prod",
  "json_class": "Chef::Environment",
  "chef_type": "environment",
  "override_attributes": {
@@ -362,7 +362,8 @@ Updated Environment dev
 
 vagrant@33m~/nov21/environments
 $ knife environment from file prod.json
-Updated Environment dev
+Updated Environment prod
 
 vagrant@33m~/nov21/environments
-$
+$ knife ssh 10.1.1.34 "sudo chef-client -E dev" --ssh-user vagrant --manual-list
+
