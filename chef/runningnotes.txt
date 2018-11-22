@@ -584,7 +584,7 @@ root@node1-ubuntu:/etc/chef#
 
 
 STEP2 : 
-Add the below lines to users/recipes/defualt.rb
+Add the below lines to users/recipes/default.rb
 
 secret = Chef::EncryptedDataBagItem.load_secret("/etc/chef/secret_key")
 passwords = Chef::EncryptedDataBagItem.load("sensitive", "passwords", secret)
