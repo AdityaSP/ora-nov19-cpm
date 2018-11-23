@@ -661,6 +661,32 @@ $
 vagrant@33m~/nov21/cookbooks
 $ knife ssh 10.1.1.34 "sudo chef-client -E prod" --ssh-user vagrant --manual-list
 
+############ Testing ###################
+1. cookstyle
+2. foodcritic
+3. inpsec
+vagrant@33m~/inspectrial
+$ cat nov23.rb
+describe package('apache2') do
+  it { should be_installed }
+end
+
+describe port('8181') do
+  it { should be_listening }
+end
+
+describe service('apache2') do
+  it { should be_installed }
+  it { should be_enabled }
+  it { should be_running }
+end
+
+vagrant@33m~/inspectrial
+$ inspec exec nov23.rb
+
+vagrant@33m~/inspectrial
+$ inspec exec nov23.rb -t ssh://vagrant@10.1.1.34 --password
+
 
 
 
